@@ -27,3 +27,42 @@ function resetForm() {
     document.querySelector("#age").value = "";
     document.querySelector("#condition").value = "";
 }
+
+function generateReport() {
+    const numPatients = patients.length;
+    const conditionsCount = {
+        "Thyroid": 0,
+        "Diabetes": 0,
+        "High Blood Pressure": 0
+    };
+    const genderConditionsCount = {
+        "Male": {
+            "Thyroid": 0,
+            "Diabetes": 0,
+            "High Blood Pressure": 0
+        },
+        "Female": {
+            "Thyroid": 0,
+            "Diabetes": 0,
+            "High Blood Pressure": 0
+        }
+    };
+
+    patients.forEach(p => {
+        conditionsCount[p.condition] += 1;
+        genderConditionsCount[p.gender][p.condition] += 1;
+    });
+
+    report.innerHTML = `<p>Number of patients: ${numPatients}</p><br>`;
+    report.innerHTML += `<p>Conditions Breakdown</p>`;
+    conditionsCount.forEach(c => {
+        report.innerHTML += `<p>${c}: ${conditionsCount[c]}</p>`;
+    });
+    report.innerHTML += `<br><p>Gender-based conditions breakdown</p>`;
+    genderConditionsCount.forEach(g => {
+        report.innerHTML += `<p>${g}</p>`;
+        genderConditionsCount[g].forEach(c => {
+            report.innerHTML += `<p>&nbsp;&nbsp;${c}: ${genderConditionsCount[g][c]}</p>`;
+        });
+    });
+}
