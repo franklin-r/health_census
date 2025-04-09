@@ -22,7 +22,7 @@ function addPatient() {
 }
 
 function resetForm() {
-    document.querySelector("#name").value "";
+    document.querySelector("#name").value = "";
     document.querySelector('input[name="gender"]:checked').checked = false;
     document.querySelector("#age").value = "";
     document.querySelector("#condition").value = "";
