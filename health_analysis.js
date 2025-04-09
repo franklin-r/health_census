@@ -66,3 +66,5 @@ function generateReport() {
         });
     });
 }
+
+addPatientButton.addEventListener("click", addPatient);
