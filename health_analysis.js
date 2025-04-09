@@ -55,16 +55,16 @@ function generateReport() {
 
     report.innerHTML = `<p>Number of patients: ${numPatients}</p><br>`;
     report.innerHTML += `<p>Conditions Breakdown</p>`;
-    conditionsCount.forEach(c => {
+    for (c in conditionsCount) {
         report.innerHTML += `<p>${c}: ${conditionsCount[c]}</p>`;
-    });
+    }
     report.innerHTML += `<br><p>Gender-based conditions breakdown</p>`;
-    genderConditionsCount.forEach(g => {
+    for (g in genderConditionsCount) {
         report.innerHTML += `<p>${g}</p>`;
-        genderConditionsCount[g].forEach(c => {
+        for (c in genderConditionsCount[g]) {
             report.innerHTML += `<p>&nbsp;&nbsp;${c}: ${genderConditionsCount[g][c]}</p>`;
-        });
-    });
+        }
+    }
 }
 
 addPatientButton.addEventListener("click", addPatient);
