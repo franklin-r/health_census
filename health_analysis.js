@@ -68,3 +68,31 @@ function generateReport() {
 }
 
 addPatientButton.addEventListener("click", addPatient);
+
+function searchCondition() {
+    const input = document.querySelector("#conditionInput").value.toLowerCase();
+    const resultDiv = document.querySelector("#result");
+
+    resultDiv.innerHTML = "";
+
+    fetch("./health_analysis.json")
+        .then(response => response.json())
+        .then(data => {
+            const condition = data.conditions.find(item => item.name.toLowerCase() === input);
+            if (condition) {
+                resultDiv.innerHTML = `<h3>${condition.name}</h3><br>`;
+                resultDiv.innerHTML += `<img src="${condition.imagesrc}"><br>`;
+                resultDiv.innerHTML += `<p><strong>Symptoms:</strong> ${condition.symptoms.join(', ')}</p><br>`;
+                resultDiv.innerHTML += `<p><strong>Prevention:</strong> ${condition.prevention.join(', ')}</p><br>`;
+                resultDiv.innerHTML += `<p><strong>Treatment:</strong> ${condition.treatment}</p>`;
+            } else {
+                resultDiv.innerHTML = "<p>Condition not found</p>";
+            }
+        })
+        .catch(error => {
+            console.error("Error in retriving data", error);
+            resultDiv.innerHTML = "<p>Error occured while fetching data</p>";
+        });
+}
+
+btnSearch.addEventListener("click", searchCondition);
